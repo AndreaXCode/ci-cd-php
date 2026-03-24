@@ -1,0 +1,24 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Validate PHP syntax
+      run: |
+        sudo apt install php-cli -y
+        find . -name "*.php" -print0 | xargs -0 -n1 php -l
+
+    - name: Validate Docker Compose
+      run: |
+        sudo apt-get install docker-compose -y
+        docker-compose config
