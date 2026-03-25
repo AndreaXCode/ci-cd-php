@@ -22,3 +22,10 @@ jobs:
       run: |
         sudo apt-get install docker-compose -y
         docker-compose config
+      
+    - name: Deploy
+      run: |
+        echo "Desplegando aplicación"
+        docker-compose pull
+        docker-compose up -d --force-recreate
+        
